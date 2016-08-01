@@ -1,6 +1,7 @@
 package OnixCoverDownloader;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
@@ -16,6 +17,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 
 public class GUI {
 
@@ -144,12 +146,18 @@ public class GUI {
 				} else {
 					useFilterCheckBox.setEnabled(false);
 				}
+				
+				shlOnixCoverDownloader.addListener(SWT.Close, new Listener() {
+			        public void handleEvent(Event event) {
+			          System.exit(0);
+			        }
+			      });
 				display.sleep();
 			}
 		}
 	}
 	
-	public static void updateProgressBar(int prog) //prog is from 0 - 100
+	public static void updateProgressBar(int prog) //prog is from 0 - 1000
 	{
 	    new Thread(new Runnable()
 	    {
