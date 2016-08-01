@@ -5,4 +5,4 @@
  * @author alist
  *
  */
-package BookCoverDownloader;
+package OnixCoverDownloader;

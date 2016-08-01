@@ -1,4 +1,4 @@
-package BookCoverDownloader;
+package OnixCoverDownloader;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -7,9 +7,8 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
+
 
 public class OnixHandler implements Runnable {
 
@@ -18,7 +17,6 @@ public class OnixHandler implements Runnable {
 	private FileReader fr = null;
 	private static boolean isRunning = false;
 	private Thread t;
-	private int numberOfBooks;
 	private String file;
 	private String company;
 	private ArrayList<Book> books;
@@ -203,23 +201,6 @@ public class OnixHandler implements Runnable {
 		return books;
 	}
 	
-	private int countBooks(){
-		if (fr == null || br == null){
-			return -1;
-		}
-		Scanner tempScan = new Scanner(br);
-		int books = 0;
-		while(tempScan.hasNext()){
-			String line = tempScan.nextLine();
-			if(line.contains("RecordReference")){
-				books++;
-				System.out.println(books);
-			}
-		}
-		tempScan.close();
-		return books;
-		
-	}
 	
 	public void downloadImg(URL imgLoc, String saveLoc){
 		

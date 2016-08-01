@@ -1,4 +1,4 @@
-package BookCoverDownloader;
+package OnixCoverDownloader;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -8,8 +8,6 @@ import org.eclipse.swt.widgets.Button;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,21 +27,21 @@ public class GUI {
 	static String filterChosen = "";
 	static boolean firstFileChosen = false;
 	static boolean firstFilterChosen = false;
-	static Shell shell;
+	static Shell shlOnixCoverDownloader;
 	static ProgressBar progressBar;
 	static Label statusLbl;
 	
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("Cover Downloader");
+		shlOnixCoverDownloader = new Shell();
+		shlOnixCoverDownloader.setSize(450, 300);
+		shlOnixCoverDownloader.setText("Onix Cover Downloader");
 		
 		
 		
-		Button btnDoStuff = new Button(shell, SWT.NONE);
+		Button btnDoStuff = new Button(shlOnixCoverDownloader, SWT.NONE);
 		
-		Button useFilterCheckBox = new Button(shell, SWT.CHECK);
+		Button useFilterCheckBox = new Button(shlOnixCoverDownloader, SWT.CHECK);
 		useFilterCheckBox.setEnabled(false);
 		useFilterCheckBox.setBounds(331, 41, 93, 16);
 		useFilterCheckBox.setText("Filter by ISBN");
@@ -82,11 +80,11 @@ public class GUI {
 		
 		
 		
-		Button btnChooseOnixFile = new Button(shell, SWT.NONE);
+		Button btnChooseOnixFile = new Button(shlOnixCoverDownloader, SWT.NONE);
 		btnChooseOnixFile.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				   FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+				   FileDialog dialog = new FileDialog(shlOnixCoverDownloader, SWT.OPEN);
 				   dialog.setFilterExtensions(new String [] {"*.xml"});
 				   fileChosen = dialog.open();
 				   firstFileChosen = true;
@@ -96,20 +94,20 @@ public class GUI {
 		btnChooseOnixFile.setBounds(10, 10, 135, 25);
 		btnChooseOnixFile.setText("Choose ONIX file");
 		
-		progressBar = new ProgressBar(shell, SWT.NONE);
+		progressBar = new ProgressBar(shlOnixCoverDownloader, SWT.NONE);
 		progressBar.setMaximum(1000);
 		progressBar.setBounds(10, 234, 414, 17);
 		
-		statusLbl = new Label(shell, SWT.NONE);
+		statusLbl = new Label(shlOnixCoverDownloader, SWT.BORDER);
 		statusLbl.setBounds(10, 175, 414, 40);
 		
 		
 		
-		Button isbnFilterBtn = new Button(shell, SWT.NONE);
+		Button isbnFilterBtn = new Button(shlOnixCoverDownloader, SWT.NONE);
 		isbnFilterBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+				FileDialog dialog = new FileDialog(shlOnixCoverDownloader, SWT.OPEN);
 				   dialog.setFilterExtensions(new String [] {"*.txt"});
 				   filterChosen = dialog.open();
 				   firstFilterChosen = true;
@@ -118,11 +116,22 @@ public class GUI {
 		});
 		isbnFilterBtn.setBounds(309, 10, 115, 25);
 		isbnFilterBtn.setText("Choose ISBN filter");
+		
+		Button btnHelp = new Button(shlOnixCoverDownloader, SWT.NONE);
+		btnHelp.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Help helpWindow = new Help();
+				helpWindow.open();
+			}
+		});
+		btnHelp.setBounds(349, 144, 75, 25);
+		btnHelp.setText("HELP");
 
 		
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		shlOnixCoverDownloader.open();
+		shlOnixCoverDownloader.layout();
+		while (!shlOnixCoverDownloader.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				if(firstFileChosen){
 					btnDoStuff.setEnabled(true);
