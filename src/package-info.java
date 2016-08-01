@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author alist
+ *
+ */
+package BookCoverDownloader;
